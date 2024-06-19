@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- First we create the button for Geolocation -->
+     <button
+     onclick="getUserLocation()"
+     >Get my location</button>
+<!-- Below we give ID to location by the help of div -->
+     <div id="location"></div>
+</body>
+<!-- Below we write the Java script and call the fuction to get the location -->
+<script>
+    function getUserLocation(){
+        // alert("Hello world")
+
+        // Below is the syntax of Navigator parameter which we will use for geolocation
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(showPosition, showError)
+        }
+        // Ye else syntax we are using because ye check krne ke liye ki hmara browser support nhi krega to 
+        else{
+            document.getElementById("location").innerHTML = "Geolocation is not supported by this browser"
+        }
+    }
+    function showPosition(position){  
+            document.getElementById("location").innerHTML = "Latitude" +position.coords.latitude +
+            "<br>" + "Longitude: " + position.coords.longitude
+        }
+    function showError(error){
+        // console.log('Error Function is called' ,error)
+        document.getElementById("location").innerHTML = "Error: " + error.message
+    }
+</script>
+</html>

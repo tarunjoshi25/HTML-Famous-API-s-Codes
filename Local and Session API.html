@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input placeholder="enter product name" type="text" id="productname">
+    <input placeholder="enter product price" type="number" id="productprice">
+    <button onclick="addProductToCart()">Add to cart</button>
+    <div id="output"></div>
+</body>
+<script>
+    function showCart(){
+        let cart=localStorage.getItem("cart")
+        cart=JSON.parse(cart)
+        let output=document.getElementById("output")
+        if (cart==null||cart.length==0){
+            output.innerHTML="<h1>cart is empty</h1>"
+        }
+        else{
+            let table="<table border='1'>";
+                table+="<tr><th>Product Name</th><th>Product Price</th></tr>"
+                for (let i=0;i<cart.length;i++){
+                    table+="<tr><td>"+cart[i].name+"</td><td>"+cart[i].price+"</td></tr>"
+                }
+                table+="</table>"
+                output.innerHTML=table
+        }
+    }
+    function addProductToCart(){
+        let cart=localStorage.getItem("cart")
+        if(cart==null){
+            cart=[]
+        }
+        else{
+            cart=JSON.parse(cart)
+        }
+        let productname=document.getElementById("productname").value
+        let productprice=document.getElementById("productprice").value
+        let product={
+            name:productname,
+            price:productprice
+        }
+        cart.push(product)
+        localStorage.setItem("cart",JSON.stringify(cart))
+        showCart()
+    }
+    showCart()
+</script>
+</html>
